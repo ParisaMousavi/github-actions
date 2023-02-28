@@ -71,6 +71,7 @@ jobs:
         uses: Azure/k8s-deploy@v1
         with:
           manifests: |
+            ./aks-helloworld-one/aks-hello-ns.yaml
             ./aks-helloworld-one/aks-helloworld-one.yaml
             ./aks-helloworld-one/aks-helloworld-two.yaml
             ./aks-helloworld-one/hello-world-ingress.yaml
