@@ -43,6 +43,8 @@ jobs:
         
       - name: deploy quick-start
         uses: Azure/k8s-deploy@v1
+        env:
+          KEYVAULT_URL: ${{ secrets.KEYVAULT_URL }}
         with:
           namespace: ${{ secrets.Workload_Identity_Sample_Namespace }}
           manifests: |
