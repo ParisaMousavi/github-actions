@@ -6,7 +6,7 @@
 name: az-aks-app-one-two
 
 on:
-  push:
+  #push:
   workflow_dispatch:
 
 env:
