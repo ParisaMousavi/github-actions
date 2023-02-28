@@ -43,6 +43,9 @@ jobs:
         
       - name: deploy quick-start
         uses: swdotcom/update-and-apply-kubernetes-configs@v1
+        env:
+          KEYVAULT_URL: ${{ secrets.KEYVAULT_URL }}
+          NAMESPACE: ${{ secrets.Workload_Identity_Sample_Namespace }}        
         with:
           k8-config-file-paths: |
             az-aks-workload-identity-sample/az-aks-workload-identity-sample.yaml
