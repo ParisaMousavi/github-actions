@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3.3.0
         with:
           # Repository name with owner. For example, actions/checkout
-          repository:  https://github.com/ParisaMousavi/solution-11-aks-apps
+          repository:  'ParisaMousavi/solution-11-aks-apps'
     
       - name: Azure Login
         uses: Azure/login@v1
