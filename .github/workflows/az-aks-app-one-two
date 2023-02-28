@@ -1,0 +1,77 @@
+# hello-world.yaml
+# Reference links
+# https://cloudworkshop.blob.core.windows.net/containers-devops/Hands-on%20lab/HOL%20step-by-step%20-%20Cloud-native%20applications%20-%20Developer%20edition.html#task-4-deploy-a-service-using-a-helm-chart
+# https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
+# https://github.com/marketplace/actions/kubernetes-bake
+
+name: az-aks-app-one-two
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  KUBECONFIG: ${HOME}/.kube/config
+  NAMESPACE: ingress-basic
+  
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+        with:
+          # Repository name with owner. For example, actions/checkout
+          repository:  https://github.com/ParisaMousavi/solution-11-aks-apps
+    
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Display Azure account info
+        run: az account show -o json
+        
+      - name: Get AKS Kube Config
+        run: az aks get-credentials --overwrite-existing --resource-group proja-rg-app-dev-aks-w-aad-weu --name proja-aks-app-dev-aad-weu --file $KUBECONFIG
+
+      - name: Set up kubelogin for non-interactive login
+        uses: azure/use-kubelogin@v1
+        with:
+           kubelogin-version: 'v0.0.24'
+           
+      - name: login with kubelogin
+        run: kubelogin convert-kubeconfig -l spn --client-id ${{ secrets.ARM_CLIENT_ID }} --client-secret ${{ secrets.ARM_CLIENT_SECRET }}     
+     
+      - name: verify the nodes
+        run: kubectl get node
+
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v3
+        with:
+          # Version of helm
+          version: v3.10.0
+
+      # Reference: https://github.com/Azure/aks-set-context
+      - name: set target aks
+        uses: azure/aks-set-context@v3
+        with:
+           resource-group: 'proja-rg-app-dev-aks-w-aad-weu'
+           cluster-name: 'proja-aks-app-dev-aad-weu'
+           admin: 'false'
+           use-kubelogin: 'true'
+           
+      - name: get helm repos
+        run: |
+          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm repo update
+          helm upgrade ingress-nginx ingress-nginx/ingress-nginx -i --create-namespace --namespace $NAMESPACE --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-health-probe-request-path"=/healthz
+        
+      - name: deploy app one
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            ./aks-helloworld-one/aks-helloworld-one.yaml
+            ./aks-helloworld-one/aks-helloworld-two.yaml
+            ./aks-helloworld-one/hello-world-ingress.yaml
