@@ -49,3 +49,4 @@ jobs:
         with:
           k8-config-file-paths: |
             az-aks-workload-identity-sample/az-aks-workload-identity-sample.yaml
+          replacement-method: defined
