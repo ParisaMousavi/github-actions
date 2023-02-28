@@ -42,10 +42,10 @@ jobs:
         run: kubectl get node
         
       - name: deploy quick-start
-        uses: Azure/k8s-deploy@v1
+        uses: swdotcom/update-and-apply-kubernetes-configs@v1
         env:
           KEYVAULT_URL: ${{ secrets.KEYVAULT_URL }}
+          NAMESPACE: ${{ secrets.Workload_Identity_Sample_Namespace }}
         with:
-          namespace: ${{ secrets.Workload_Identity_Sample_Namespace }}
-          manifests: |
-            ./az-aks-workload-identity-sample/az-aks-workload-identity-sample.yaml
+          k8-config-file-paths: |
+            az-aks-workload-identity-sample/az-aks-workload-identity-sample.yaml
