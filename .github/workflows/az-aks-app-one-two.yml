@@ -33,7 +33,7 @@ jobs:
         run: az account show -o json
         
       - name: Get AKS Kube Config
-        run: az aks get-credentials --overwrite-existing --resource-group proja-rg-app-dev-aks-w-aad-weu --name proja-aks-app-dev-aad-weu --file $KUBECONFIG
+        run: az aks get-credentials --overwrite-existing --resource-group ${{ secrets.aks_cluster_resourcegroup_name }} --name ${{ secrets.aks_cluster_name }} --file $KUBECONFIG
 
       - name: Set up kubelogin for non-interactive login
         uses: azure/use-kubelogin@v1
