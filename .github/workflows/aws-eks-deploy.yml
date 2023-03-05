@@ -4,6 +4,10 @@ on:
   #push:
   workflow_dispatch:
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+  
 env:
   KUBECONFIG: ${HOME}/.kube/config
   NAMESPACE: ingress-basic
@@ -23,10 +27,13 @@ jobs:
           # Repository name with owner. For example, actions/checkout
           repository:  'ParisaMousavi/aws-eks'
 
-      - name: Install aws cli
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.ROLE_2_ASSUME }}
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+      # Upload a file to AWS s3
+      - name:  Copy index.html to s3
         run: |
-          aws --version
-          export AWS_DEFAULT_PROFILE=default
           aws s3api list-buckets
-
 
