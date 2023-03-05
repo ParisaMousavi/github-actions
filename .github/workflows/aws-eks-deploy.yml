@@ -49,4 +49,6 @@ jobs:
           aws s3api list-buckets
           terraform version
 
-
+      - name:  terraform plan
+        run: |
+          terraform plan
