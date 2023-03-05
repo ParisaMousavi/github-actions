@@ -27,6 +27,11 @@ jobs:
           # Repository name with owner. For example, actions/checkout
           repository:  'ParisaMousavi/enterprise-eks'
 
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
