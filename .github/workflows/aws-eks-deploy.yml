@@ -47,11 +47,6 @@ jobs:
       - name:  list s3
         run: |
           aws s3api list-buckets
+          terraform version
 
-      - name: terraform-cdk-action
-        uses: hashicorp/terraform-cdk-action@v0.1.0
-        with:
-          terraformVersion: 1.3.9
-          mode: 'plan-only'
-          # The terraform cloud / terraform enterprise token to use
 
