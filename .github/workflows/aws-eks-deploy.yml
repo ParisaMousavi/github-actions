@@ -22,5 +22,6 @@ jobs:
       - name: Install aws cli
         run: |
           aws --version
+          aws configure
 
 
