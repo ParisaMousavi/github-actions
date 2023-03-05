@@ -32,10 +32,9 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-          role-to-assume: ${{ secrets.ROLE_2_ASSUME }}
           aws-region: ${{ vars.AWS_DEFAULT_REGION }}
-      # Upload a file to AWS s3
-      - name:  Copy index.html to s3
+     
+      - name:  list s3
         run: |
           aws s3api list-buckets
 
