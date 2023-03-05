@@ -26,7 +26,7 @@ jobs:
       - name: Install aws cli
         run: |
           aws --version
-          export AWS_DEFAULT_PROFILE='default'
-          aws configure
+          export AWS_DEFAULT_PROFILE=default
+          aws s3api list-buckets
 
 
