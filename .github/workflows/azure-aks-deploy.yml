@@ -3,10 +3,6 @@ name: azure-aks-deploy
 on:
   #push:
   workflow_dispatch:
-
-permissions:
-  id-token: write # This is required for requesting the JWT
-  contents: read  # This is required for actions/checkout
   
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
