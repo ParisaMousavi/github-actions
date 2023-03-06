@@ -35,7 +35,7 @@ jobs:
           
       - name:  terraform destroy
         run: |
-          terraform apply -auto-approve \
+          terraform destroy -auto-approve \
           -var connect_to_arc=${{ vars.CONNECT_TO_ARC }} \
           -var install_arc_monitor=${{ vars.INSTALL_ARC_MONITOR }} 
           
