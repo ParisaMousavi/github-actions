@@ -33,10 +33,6 @@ jobs:
           # Repository name with owner. For example, actions/checkout
           repository:  'ParisaMousavi/enterprise-eks'
 
-      - name: test environment
-        run: |
-          echo ${{vars.TF_VAR_CONNECT_TO_ARC}}
-
       - name: Azure Login
         uses: Azure/login@v1
         with:
@@ -57,4 +53,4 @@ jobs:
       - name:  terraform plan
         run: |
           terraform init
-          terraform plan
+          terraform plan -var connect_to_arc=${{ vars.TF_VAR_CONNECT_TO_ARC }}
