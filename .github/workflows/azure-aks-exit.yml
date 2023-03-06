@@ -1,0 +1,42 @@
+name: azure-aks-exit
+
+on:
+  #push:
+  workflow_dispatch:
+  
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  TF_VAR_tenant_id: ${{ secrets.ARM_TENANT_ID }}
+  
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    environment: azure-aks-deploy
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+        with:
+          # Repository name with owner. For example, actions/checkout
+          repository:  'ParisaMousavi/enterprise-aks'
+
+      - name: Set up kubelogin for non-interactive login
+        uses: azure/use-kubelogin@v1
+        with:
+           kubelogin-version: 'v0.0.24'
+           
+      - name:  terraform init
+        run: |
+          terraform init
+          
+          
+      - name:  terraform destroy
+        run: |
+          terraform apply -auto-approve \
+          -var connect_to_arc=${{ vars.CONNECT_TO_ARC }} \
+          -var install_arc_monitor=${{ vars.INSTALL_ARC_MONITOR }} 
+          
+          
