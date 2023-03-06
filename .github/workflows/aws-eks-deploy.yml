@@ -35,7 +35,7 @@ jobs:
 
       - name: test environment
         run: |
-          echo ${{env.TF_VAR_CONNECT_TO_ARC}}
+          echo ${{vars.TF_VAR_CONNECT_TO_ARC}}
 
       - name: Azure Login
         uses: Azure/login@v1
