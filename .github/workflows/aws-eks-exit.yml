@@ -57,4 +57,8 @@ jobs:
       - name:  terraform destroy
         run: |
           terraform destroy -auto-approve \
-          -var connect_to_arc=${{ vars.TF_VAR_CONNECT_TO_ARC }}          
+          -var connect_to_arc=${{ vars.TF_VAR_CONNECT_TO_ARC }} \
+          -var install_arc_custom_location=${{ vars.TF_VAR_INSTALL_ARC_CUSTOM_LOCATION }} \
+          -var install_arc_data_controller=${{ vars.TF_VAR_INSTALL_ARC_DATA_CONTROLLER }} \
+          -var install_arc_flux=${{ vars.TF_VAR_INSTALL_ARC_FLUX }} \
+          -var install_arc_monitor=${{ vars.TF_VAR_INSTALL_ARC_MONITOR }}       
