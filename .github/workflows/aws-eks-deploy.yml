@@ -24,6 +24,7 @@ env:
 jobs:
   greet:
     runs-on: ubuntu-latest
+    environment: aws-eks-deploy
 
     steps:
       - name: Checkout
@@ -31,6 +32,10 @@ jobs:
         with:
           # Repository name with owner. For example, actions/checkout
           repository:  'ParisaMousavi/enterprise-eks'
+
+      - name: test environment
+        run: |
+          echo ${{env.TF_VAR_CONNECT_TO_ARC}}
 
       - name: Azure Login
         uses: Azure/login@v1
