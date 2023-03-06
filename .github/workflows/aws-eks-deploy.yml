@@ -50,7 +50,16 @@ jobs:
           aws s3api list-buckets
           terraform version
 
-      - name:  terraform plan
+      - name:  terraform init
         run: |
           terraform init
-          terraform plan -var connect_to_arc=${{ vars.TF_VAR_CONNECT_TO_ARC }}
+
+      - name:  terraform plan
+        run: |
+          terraform plan \
+          -var connect_to_arc=${{ vars.TF_VAR_CONNECT_TO_ARC }}
+          
+      - name:  terraform apply
+        run: |
+          terraform apply -auto-approve \
+          -var connect_to_arc=${{ vars.TF_VAR_CONNECT_TO_ARC }}          
