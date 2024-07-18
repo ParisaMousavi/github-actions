@@ -20,6 +20,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    environment: for-test
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -39,5 +40,5 @@ jobs:
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.14.0
         with:
-         token: ${{ github.token }}
+         token: ${{ secrets.MY_GITHUB_TOKEN }}
          tag: v1.0.${{ github.run_number }}
