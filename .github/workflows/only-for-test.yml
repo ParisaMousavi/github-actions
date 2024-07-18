@@ -36,7 +36,8 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           
-      - name: add label
-        uses: actions-ecosystem/action-add-labels@v1
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1.14.0
         with:
-          labels: bug
+         token: ${{ github.token }}
+         tag: v1.0.${{ github.run_number }}
