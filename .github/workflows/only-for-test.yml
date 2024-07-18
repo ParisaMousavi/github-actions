@@ -42,4 +42,4 @@ jobs:
         with:
          token: ${{ secrets.MY_GITHUB_TOKEN }}
          tag: v1.0.${{ github.run_number }}
-         name: My Release v1.0.${{ github.run_number }}
+         generateReleaseNotes: true
