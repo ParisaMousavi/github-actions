@@ -18,8 +18,8 @@ jobs:
   job_name:
     uses: ./.github/workflows/resusable-workflow.yml
     with:
-      image_name: my-awesome-app
-      tag: 111
+      image_name: 'my-awesome-app'
+      tag: '111'
     secrets:
-      registry_username: edrf
-      registry_password: 6578
+      registry_username: 'edrf'
+      registry_password: '6578'
