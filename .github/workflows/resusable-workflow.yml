@@ -16,11 +16,11 @@ on:
 
 jobs:
   build:
-    # runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - run: echo "Hello 1"
     
   do-something-else:
-    # runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - run: echo "Hello 2"
