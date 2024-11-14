@@ -17,7 +17,7 @@ jobs:
         run: echo Hello, world!
         
   job_name:
-    uses: ./resusable-workflow.yml@main
+    uses: ./.github/workflows/resusable-workflow.yml@main
     with:
       image_name: my-awesome-app
       tag: 111
