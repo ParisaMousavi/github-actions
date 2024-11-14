@@ -16,7 +16,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
   job_name:
-    uses: ./.github/workflows/resusable-workflow.yml@main
+    uses: ./.github/workflows/resusable-workflow.yml
     with:
       image_name: my-awesome-app
       tag: 111
