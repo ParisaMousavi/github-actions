@@ -1,0 +1,47 @@
+name: azure-fabric-deploy
+
+on:
+  #push:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    environment: azure-fabric-deploy
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+        with:
+          # Repository name with owner. For example, actions/checkout
+          repository:  'ParisaMousavi/az-fabric'
+           
+      - name:  terraform init
+        run: |
+          terraform init
+
+      - name:  terraform plan
+        run: |
+          terraform plan \
+          -var connect_to_arc=${{ vars.CONNECT_TO_ARC }} \
+          -var install_arc_monitor=${{ vars.INSTALL_ARC_MONITOR }} 
+          
+          
+      - name:  terraform apply
+        run: |
+          terraform apply -auto-approve \
+          -var connect_to_arc=${{ vars.CONNECT_TO_ARC }} \
+          -var install_arc_monitor=${{ vars.INSTALL_ARC_MONITOR }} \
+          -var vm_size=${{ vars.vm_size }} 
+          
+          
